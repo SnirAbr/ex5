@@ -1,4 +1,4 @@
-package filesprocessing.filters;
+package filesprocessing.filtes;
 
 import java.io.File;
 
@@ -39,7 +39,7 @@ class Filter {
      * @return all files answering the criteria of the command and it's parameters
      */
     public File[] get_files(String[] args){
-
+        return null;
     }
 
 
