@@ -3,7 +3,6 @@ package filesprocessing.filters;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * a class of a general filter
