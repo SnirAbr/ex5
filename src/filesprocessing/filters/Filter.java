@@ -20,6 +20,7 @@ abstract class Filter {
      */
     public Filter(String sourceDir){
         File[] files = new File(sourceDir).listFiles();
+        // todo Check for nullity
         allFiles = new ArrayList<File>(Arrays.asList(files));
     }
 
