@@ -8,15 +8,6 @@ import java.util.ArrayList;
  */
 class AllFilter extends Filter {
 
-    /**
-     * constructs a new filter
-     *
-     * @param sourceDir the directory of the files
-     */
-    AllFilter(String sourceDir) {
-        super(sourceDir);
-    }
-
     @Override
     public ArrayList<File> filter(String[] args) {
         //TODO handle exceptions

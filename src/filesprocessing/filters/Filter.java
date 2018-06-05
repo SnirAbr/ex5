@@ -10,21 +10,6 @@ import java.util.Arrays;
 abstract class Filter {
 
     /**
-     * list of files in the directory
-     */
-    protected final ArrayList<File> allFiles;
-
-    /**
-     * constructs a filter with file directory
-     * @param sourceDir path to the source directory
-     */
-    protected Filter(String sourceDir){
-        File[] files = new File(sourceDir).listFiles();
-        // todo Check for nullity
-        allFiles = new ArrayList<File>(Arrays.asList(files));
-    }
-
-    /**
      * Filter 'allFiles' and return a list of filtered files
      * @param args filter arguments
      * @return an array of File objects of the filtered list
