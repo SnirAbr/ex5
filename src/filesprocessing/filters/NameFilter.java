@@ -1,10 +1,10 @@
-package filesprocessing.analysys.factories.filters;
+package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-public class NameFilter extends Filter {
+class NameFilter extends Filter {
 
     /**
      * enum of possible types of name filters
@@ -24,7 +24,7 @@ public class NameFilter extends Filter {
      * @param sourceDir the directory of the files
      * @param filterType type of this filter
      */
-    public NameFilter(String sourceDir, NAME_TYPE filterType) {
+    NameFilter(String sourceDir, NAME_TYPE filterType) {
         super(sourceDir);
         this.filterType = filterType;
     }

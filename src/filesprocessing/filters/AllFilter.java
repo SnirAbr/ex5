@@ -1,4 +1,4 @@
-package filesprocessing.analysys.factories.filters;
+package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,14 +6,14 @@ import java.util.ArrayList;
 /**
  * a class of a filter which gives only files who are either executable or not (depends on input)
  */
-public class AllFilter extends Filter {
+class AllFilter extends Filter {
 
     /**
      * constructs a new filter
      *
      * @param sourceDir the directory of the files
      */
-    public AllFilter(String sourceDir) {
+    AllFilter(String sourceDir) {
         super(sourceDir);
     }
 

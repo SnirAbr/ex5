@@ -1,10 +1,10 @@
-package filesprocessing.analysys.factories.orders;
+package filesprocessing.orders;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-abstract public class Order {
+abstract class Order {
 
 	/**
 	 * list of files that need to be ordered
@@ -15,7 +15,7 @@ abstract public class Order {
 	 * constructs a filter with file directory
 	 * @param files an array list of files
 	 */
-	public Order(ArrayList<File> files){
+	protected Order(ArrayList<File> files){
 		// todo Check for nullity
 		allFiles = files;
 	}

@@ -1,4 +1,4 @@
-package filesprocessing.analysys.factories.filters;
+package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * a class of a general filter
  */
-abstract public class Filter {
+abstract class Filter {
 
     /**
      * list of files in the directory
@@ -18,7 +18,7 @@ abstract public class Filter {
      * constructs a filter with file directory
      * @param sourceDir path to the source directory
      */
-    public Filter(String sourceDir){
+    protected Filter(String sourceDir){
         File[] files = new File(sourceDir).listFiles();
         // todo Check for nullity
         allFiles = new ArrayList<File>(Arrays.asList(files));

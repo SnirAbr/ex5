@@ -1,4 +1,4 @@
-package filesprocessing.analysys.factories.filters;
+package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 /**
  * a class of a filter which gives only files larger than an asked number
  */
-public class SizeFilter extends Filter {
+class SizeFilter extends Filter {
 
     /**
      * enum of possible types of size filters
@@ -27,7 +27,7 @@ public class SizeFilter extends Filter {
      * @param sourceDir the directory of the files
      * @param filterType type of this filter
      */
-    public SizeFilter(String sourceDir, SIZE_TYPE filterType) {
+    SizeFilter(String sourceDir, SIZE_TYPE filterType) {
         super(sourceDir);
         this.filterType = filterType;
     }

@@ -1,13 +1,13 @@
-package filesprocessing.analysys.factories.filters;
+package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-public class PropertyFilter extends Filter {
+class PropertyFilter extends Filter {
 
     private final String POSITIVE = "YES";
-    private final String NEGATIVE = "YES";
+    private final String NEGATIVE = "NO";
 
     /**
      * enum of possible types of property filters
@@ -27,7 +27,7 @@ public class PropertyFilter extends Filter {
      * @param sourceDir  the directory of the files
      * @param filterType type of this filter
      */
-    public PropertyFilter(String sourceDir, PROPERTY_TYPE filterType) {
+    PropertyFilter(String sourceDir, PROPERTY_TYPE filterType) {
         super(sourceDir);
         this.filterType = filterType;
     }
