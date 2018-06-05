@@ -1,16 +1,16 @@
-package filesprocessing.analysys.factories.orders;
+package filesprocessing.orders;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class SizeOrder extends Order {
+class SizeOrder extends Order {
 
 	/**
 	 * Calls the Order's constructor
 	 */
-	public SizeOrder(ArrayList<File> files) {
+	SizeOrder(ArrayList<File> files) {
 		super(files);
 	}
 

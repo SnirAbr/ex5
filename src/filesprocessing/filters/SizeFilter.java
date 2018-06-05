@@ -1,22 +1,25 @@
-package filesprocessing.analysys.factories.filters;
+package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-public class NameFilter extends Filter {
+/**
+ * a class of a filter which gives only files larger than an asked number
+ */
+class SizeFilter extends Filter {
 
     /**
-     * enum of possible types of name filters
+     * enum of possible types of size filters
      */
-    public enum NAME_TYPE {
-        PREFIX, SUFFIX, FILE, CONTAINS
+    public enum SIZE_TYPE {
+        GREATER, BETWEEN, SMALLER
     }
 
     /**
      * this filter's filter type
      */
-    private NAME_TYPE filterType;
+    private SIZE_TYPE filterType;
 
     /**
      * constructs a new filter
@@ -24,14 +27,20 @@ public class NameFilter extends Filter {
      * @param sourceDir the directory of the files
      * @param filterType type of this filter
      */
-    public NameFilter(String sourceDir, NAME_TYPE filterType) {
+    SizeFilter(String sourceDir, SIZE_TYPE filterType) {
         super(sourceDir);
         this.filterType = filterType;
     }
 
     @Override
     public ArrayList<File> filter(String[] args) {
-        // todo Add Exceptions
+        //TODO handle exceptions
+        if (args.length != 1) {
+        }
+        try {
+            int numBytes = Integer.parseInt(args[0]);
+        } catch (Exception e) {
+        }
         ArrayList<File> goodFiles = new ArrayList<File>();
         Predicate<File> filter = createFilter(args);
         for (File file : allFiles) {
@@ -42,49 +51,41 @@ public class NameFilter extends Filter {
         return goodFiles;
     }
 
-    private Predicate<File> createFilter(String[] args){
+    private Predicate<File> createFilter(String[] args) {
         Predicate<File> filter = null;
         switch (filterType) {
-            case PREFIX:
+            case GREATER:
                 filter = new Predicate<File>() {
-                    String prefix = args[0];
+                    int lowerBound = Integer.parseInt(args[0]);
 
                     @Override
                     public boolean test(File file) {
-                        return file.getName().startsWith(prefix);
+                        return file.length() > lowerBound;
                     }
                 };
                 break;
-            case SUFFIX:
+            case BETWEEN:
                 filter = new Predicate<File>() {
-                    String suffix = args[0];
+                    int lowerBound = Integer.parseInt(args[0]);
+                    int upperBound = Integer.parseInt(args[1]);
 
                     @Override
                     public boolean test(File file) {
-                        return file.getName().endsWith(suffix);
+                        return file.length() >= lowerBound && file.length() <= upperBound;
                     }
                 };
                 break;
-            case FILE:
+            case SMALLER:
                 filter = new Predicate<File>() {
-                    String name = args[0];
+                    int upperBound = Integer.parseInt(args[0]);
 
                     @Override
                     public boolean test(File file) {
-                        return file.getName().equals(name);
+                        return file.length() < upperBound;
                     }
                 };
                 break;
-            case CONTAINS:
-                filter = new Predicate<File>() {
-                    String inName = args[0];
 
-                    @Override
-                    public boolean test(File file) {
-                        return file.getName().contains(inName);
-                    }
-                };
-                break;
         }
         return filter;
     }
