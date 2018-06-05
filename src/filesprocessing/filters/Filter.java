@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * a class of a general filter
  */
-abstract class Filter {
+abstract public class Filter {
 
     /**
      * list of files in the directory
