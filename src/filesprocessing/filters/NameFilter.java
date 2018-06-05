@@ -19,13 +19,10 @@ class NameFilter extends Filter {
     private NAME_TYPE filterType;
 
     /**
-     * constructs a new filter
-     *
-     * @param sourceDir the directory of the files
+     * constructs a new size filter
      * @param filterType type of this filter
      */
-    NameFilter(String sourceDir, NAME_TYPE filterType) {
-        super(sourceDir);
+    NameFilter(NAME_TYPE filterType) {
         this.filterType = filterType;
     }
 

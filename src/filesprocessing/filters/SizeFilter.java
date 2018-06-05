@@ -22,13 +22,10 @@ class SizeFilter extends Filter {
     private SIZE_TYPE filterType;
 
     /**
-     * constructs a new filter
-     *
-     * @param sourceDir the directory of the files
+     * constructs a new size filter
      * @param filterType type of this filter
      */
-    SizeFilter(String sourceDir, SIZE_TYPE filterType) {
-        super(sourceDir);
+    SizeFilter(SIZE_TYPE filterType) {
         this.filterType = filterType;
     }
 

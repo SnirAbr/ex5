@@ -22,13 +22,10 @@ class PropertyFilter extends Filter {
     private PROPERTY_TYPE filterType;
 
     /**
-     * constructs a new filter
-     *
-     * @param sourceDir  the directory of the files
+     * constructs a new property filter
      * @param filterType type of this filter
      */
-    PropertyFilter(String sourceDir, PROPERTY_TYPE filterType) {
-        super(sourceDir);
+    PropertyFilter(PROPERTY_TYPE filterType) {
         this.filterType = filterType;
     }
 
