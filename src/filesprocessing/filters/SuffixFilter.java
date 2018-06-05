@@ -12,13 +12,18 @@ public class SuffixFilter extends Filter {
 		super(SourceDir);
 	}
 
+	/**
+	 * Filters 'allFiles' by its suffix
+	 * @param args the suffix to search for
+	 * @return a filtered list
+	 */
 	@Override
 	public ArrayList<File> filter(String[] args) {
 		// todo Add Exceptions
-		String name = args[0];
+		String suffix = args[0];
 		ArrayList<File> filteredFiles = new ArrayList<File>();
 		for(File file : allFiles) {
-			if(file.getName().endsWith(name)) {
+			if(file.getName().endsWith(suffix)) {
 				filteredFiles.add(file);
 			}
 		}

@@ -12,6 +12,11 @@ public class FileFilter extends Filter {
 		super(SourceDir);
 	}
 
+	/**
+	 * Filters 'allFiles' by name
+	 * @param args the name to search for
+	 * @return a filtered list
+	 */
 	@Override
 	public ArrayList<File> filter(String[] args) {
 		// todo Add Exceptions
