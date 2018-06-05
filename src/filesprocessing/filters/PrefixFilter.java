@@ -12,13 +12,18 @@ public class PrefixFilter extends Filter {
 		super(SourceDir);
 	}
 
+	/**
+	 * Filters 'allFiles' by its prefix
+	 * @param args the prefix to search for
+	 * @return a filtered list
+	 */
 	@Override
 	public ArrayList<File> filter(String[] args) {
 		// todo Add Exceptions
-		String name = args[0];
+		String prefix = args[0];
 		ArrayList<File> filteredFiles = new ArrayList<File>();
 		for(File file : allFiles) {
-			if(file.getName().startsWith(name)) {
+			if(file.getName().startsWith(prefix)) {
 				filteredFiles.add(file);
 			}
 		}

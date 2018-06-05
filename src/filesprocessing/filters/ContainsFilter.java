@@ -12,6 +12,11 @@ public class ContainsFilter extends Filter {
 		super(SourceDir);
 	}
 
+	/**
+	 * Filters 'allFiles' by testing if it contains a certain name
+	 * @param args the name to search for
+	 * @return a filtered list
+	 */
 	@Override
 	public ArrayList<File> filter(String[] args) {
 		// todo Add Exceptions
