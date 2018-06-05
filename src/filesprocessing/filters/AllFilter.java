@@ -13,6 +13,6 @@ class AllFilter extends Filter {
         //TODO handle exceptions
         if (args.length != 0) {
         }
-        return allFiles;
+        return FilterFactory.allFiles;
     }
 }

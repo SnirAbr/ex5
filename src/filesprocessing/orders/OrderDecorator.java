@@ -33,4 +33,12 @@ public class OrderDecorator {
 		return orderedFiles;
 	}
 
+	/**
+	 * Sets a new order to the decorator
+	 * @param newOrder the new order
+	 */
+	public void setOrder(Order newOrder) {
+		this.order = newOrder;
+	}
+
 }

@@ -1,9 +1,7 @@
 package filesprocessing.filters;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FilterDecorator {
 
@@ -29,11 +27,19 @@ public class FilterDecorator {
 	public ArrayList<File> filter(String[] args) {
 		ArrayList<File> filteredFiles = this.filter.filter(args);
 		if(not) {
-			ArrayList<File> allFilesCopy = new ArrayList<File>(allFiles);
+			ArrayList<File> allFilesCopy = new ArrayList<File>(FilterFactory.allFiles);
 			allFilesCopy.removeAll(filteredFiles);
 			return allFilesCopy;
 		}
 		return filteredFiles;
+	}
+
+	/**
+	 * Sets a new filter to the decorator
+	 * @param newFilter the new filter
+	 */
+	public void setFilter(Filter newFilter) {
+		this.filter = newFilter;
 	}
 
 }

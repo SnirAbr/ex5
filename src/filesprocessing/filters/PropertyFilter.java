@@ -13,7 +13,7 @@ class PropertyFilter extends Filter {
      * enum of possible types of property filters
      */
     public enum PROPERTY_TYPE {
-        HIDDEN, WRITABLE, EXECUTABLE
+        HIDDEN, WRITABLE, EXE
     }
 
     /**
@@ -34,7 +34,7 @@ class PropertyFilter extends Filter {
         // todo Add Exceptions
         ArrayList<File> goodFiles = new ArrayList<File>();
         Predicate<File> filter = createFilter(args);
-        for (File file : allFiles) {
+        for (File file : FilterFactory.allFiles) {
             if (filter.test(file)) {
                 goodFiles.add(file);
             }
@@ -65,7 +65,7 @@ class PropertyFilter extends Filter {
                     }
                 };
                 break;
-            case EXECUTABLE:
+            case EXE:
                 filter = new Predicate<File>() {
                     boolean checkExecutable = args[0].equals(POSITIVE);
 
