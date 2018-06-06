@@ -13,7 +13,7 @@ abstract class Filter {
      * Filter 'allFiles' and return a list of filtered files
      * @param args filter arguments
      * @return an array of File objects of the filtered list
-     * @throws FilterWarningException
+     * @throws FilterWarningException in case of invalid arguments
      */
     abstract public ArrayList<File> filter(String[] args) throws FilterWarningException;
 

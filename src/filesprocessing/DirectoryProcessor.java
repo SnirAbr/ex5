@@ -3,6 +3,7 @@ package filesprocessing;
 import filesprocessing.analysys.Parser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DirectoryProcessor {
 

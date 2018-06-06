@@ -66,7 +66,7 @@ class PropertyFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.isHidden() == checkWritable;
+                        return file.canWrite() == checkWritable;
                     }
                 };
                 break;
@@ -76,7 +76,7 @@ class PropertyFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.isHidden() == checkExecutable;
+                        return file.canExecute() == checkExecutable;
                     }
                 };
                 break;

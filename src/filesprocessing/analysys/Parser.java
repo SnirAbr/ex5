@@ -22,27 +22,27 @@ public class Parser {
     /* Error message in case the command file is missing */
     private final static String MISSING_FILE_ERROR = "ERROR: Command file is missing";
 
-	/* Error message in case the command file is missing */
-	private final static String BAD_SUBSECTION_NAME = "ERROR: Subsection name is invalid";
+    /* Error message in case the command file is missing */
+    private final static String BAD_SUBSECTION_NAME = "ERROR: Subsection name is invalid";
 
-	/* Error message in case the command file is missing */
-	private final static String BAD_COMMAND_FORMAT = "ERROR: Command format is invalid";
+    /* Error message in case the command file is missing */
+    private final static String BAD_COMMAND_FORMAT = "ERROR: Command format is invalid";
 
-	/* Error message while trying to read the command file */
-	private final static String READING_ERROR = "ERROR: Couldn't read from command file";
+    /* Error message while trying to read the command file */
+    private final static String READING_ERROR = "ERROR: Couldn't read from command file";
 
-	/* Warning message */
-	private final static String WARNING_MESSAGE = "Warning in line ";
+    /* Warning message */
+    private final static String WARNING_MESSAGE = "Warning in line ";
 
-	/* id message as a filter warning */
-	private final static String FILTER_WARNING_ID = "FILTER";
-	/* id message as an order warning*/
-	private final static String ORDER_WARNING_ID = "ORDER";
+    /* id message as a filter warning */
+    private final static String FILTER_WARNING_ID = "FILTER";
+    /* id message as an order warning*/
+    private final static String ORDER_WARNING_ID = "ORDER";
 
-	/* default filter */
-	private final static String DEFAULT_FILTER = "all";
+    /* default filter */
+    private final static String DEFAULT_FILTER = "all";
 
-	/**
+    /**
      * takes the files from the sourceDir and filters and ordered them according to the command file in a
      * String array list
      *
@@ -51,14 +51,14 @@ public class Parser {
      * @return the wanted output data of the program
      */
     public static ArrayList<OutputLine> processFiles(String sourceDir, String commandDir) {
-		ArrayList<OutputLine> output = new ArrayList<OutputLine>();
+        ArrayList<OutputLine> output = new ArrayList<OutputLine>();
         File commandFile = new File(commandDir);
-        BufferedReader br = null;
+        BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(commandFile));
         } catch (IOException e) {
-			output.add(new OutputLine(MISSING_FILE_ERROR, OutputLine.STATUS.ERROR));
-			return output;
+            output.add(new OutputLine(MISSING_FILE_ERROR, OutputLine.STATUS.ERROR));
+            return output;
         }
         ArrayList<String> commandData = new ArrayList<String>();
         String line;
@@ -67,8 +67,8 @@ public class Parser {
                 commandData.add(line);
             }
         } catch (IOException e) {
-			output.add(new OutputLine(READING_ERROR, OutputLine.STATUS.ERROR));
-			return output;
+            output.add(new OutputLine(READING_ERROR, OutputLine.STATUS.ERROR));
+            return output;
         }
         int lineCounter = 0;
         while (commandData.size() >= 3) {
@@ -76,17 +76,17 @@ public class Parser {
             String nextLine = commandData.remove(0);
             lineCounter++;
             if (!nextLine.equals(FILTER_LINE)) {
-            	output.clear();
-				output.add(new OutputLine(BAD_SUBSECTION_NAME, OutputLine.STATUS.ERROR));
-				return output;
+                output.clear();
+                output.add(new OutputLine(BAD_SUBSECTION_NAME, OutputLine.STATUS.ERROR));
+                return output;
             }
             section.add(commandData.remove(0));
             nextLine = commandData.remove(0);
-            lineCounter++;
+            lineCounter+=2;
             if (!nextLine.equals(ORDER_LINE)) {
-				output.clear();
-				output.add(new OutputLine(BAD_SUBSECTION_NAME, OutputLine.STATUS.ERROR));
-				return output;
+                output.clear();
+                output.add(new OutputLine(BAD_SUBSECTION_NAME, OutputLine.STATUS.ERROR));
+                return output;
             }
             if (!commandData.isEmpty()) {
                 nextLine = commandData.get(0);
@@ -97,59 +97,55 @@ public class Parser {
                 }
             }
             try {
-				ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
-				for(String file : files) {
-					output.add(new OutputLine(file, OutputLine.STATUS.VALID));
-				}
-			}
-			catch (WarningException exception) {
-            	switch(exception.toString()) {
-					case FILTER_WARNING_ID:
-						int warningLine = section.size() == 1 ? lineCounter - 1 : lineCounter - 2;
-						output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(warningLine),
-								OutputLine.STATUS.WARNING));
-						section.set(0, DEFAULT_FILTER);
-						try {
-							ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
-							for(String file : files) {
-								output.add(new OutputLine(file, OutputLine.STATUS.VALID));
-							}
-						}
-						catch(WarningException orderException) {
-							output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(lineCounter),
-									OutputLine.STATUS.WARNING));
-							section.remove(1);
-							try {
-								ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
-								for (String file : files) {
-									output.add(new OutputLine(file, OutputLine.STATUS.VALID));
-								}
-							}
-							catch (WarningException e) {
-								// never gets here
-							}
-						}
-						break;
-					case ORDER_WARNING_ID:
-						output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(lineCounter),
-								OutputLine.STATUS.WARNING));
-						section.remove(1);
-						try {
-							ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
-							for (String file : files) {
-								output.add(new OutputLine(file, OutputLine.STATUS.VALID));
-							}
-						}
-						catch (WarningException e) {
-							// never gets here
-						}
-				}
-			}
+                ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
+                for (String file : files) {
+                    output.add(new OutputLine(file, OutputLine.STATUS.VALID));
+                }
+            } catch (WarningException exception) {
+                switch (exception.getMessage()) {
+                    case FILTER_WARNING_ID:
+                        int warningLine = section.size() == 1 ? lineCounter - 1 : lineCounter - 2;
+                        output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(warningLine),
+                                OutputLine.STATUS.WARNING));
+                        section.set(0, DEFAULT_FILTER);
+                        try {
+                            ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
+                            for (String file : files) {
+                                output.add(new OutputLine(file, OutputLine.STATUS.VALID));
+                            }
+                        } catch (WarningException orderException) {
+                            output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(lineCounter),
+                                    OutputLine.STATUS.WARNING));
+                            section.remove(1);
+                            try {
+                                ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
+                                for (String file : files) {
+                                    output.add(new OutputLine(file, OutputLine.STATUS.VALID));
+                                }
+                            } catch (WarningException e) {
+                                // never gets here
+                            }
+                        }
+                        break;
+                    case ORDER_WARNING_ID:
+                        output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(lineCounter),
+                                OutputLine.STATUS.WARNING));
+                        section.remove(1);
+                        try {
+                            ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
+                            for (String file : files) {
+                                output.add(new OutputLine(file, OutputLine.STATUS.VALID));
+                            }
+                        } catch (WarningException e) {
+                            // never gets here
+                        }
+                }
+            }
         }
         if (commandData.size() != 0) {
-			output.clear();
-			output.add(new OutputLine(BAD_COMMAND_FORMAT, OutputLine.STATUS.ERROR));
-			return output;
+            output.clear();
+            output.add(new OutputLine(BAD_COMMAND_FORMAT, OutputLine.STATUS.ERROR));
+            return output;
         }
         return output;
     }

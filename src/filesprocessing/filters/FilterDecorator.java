@@ -27,12 +27,8 @@ public class FilterDecorator {
      * @throws FilterWarningException in case of bad arguments
      */
     public ArrayList<File> filter(String[] args) throws FilterWarningException {
-        ArrayList<File> filteredFiles = null;
-        try {
-            filteredFiles = this.filter.filter(args);
-        } catch (FilterWarningException e) {
-            throw e;
-        }
+        ArrayList<File> filteredFiles;
+        filteredFiles = this.filter.filter(args);
         if (not) {
             ArrayList<File> allFilesCopy = new ArrayList<File>(FilterFactory.allFiles);
             allFilesCopy.removeAll(filteredFiles);
