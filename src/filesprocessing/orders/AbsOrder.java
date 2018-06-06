@@ -21,7 +21,7 @@ class AbsOrder extends Order {
 			public int compare(File o1, File o2) {
 				String firstPath = o1.getAbsolutePath();
 				String secondPath = o2.getAbsolutePath();
-				if(firstPath == secondPath) {
+				if(firstPath.equals(secondPath)) {
 					return 0;
 				}
 				return firstPath.compareTo(secondPath) < 0 ? -1 : 1;
