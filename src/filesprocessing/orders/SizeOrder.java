@@ -15,16 +15,15 @@ class SizeOrder extends Order {
 	@Override
 	public ArrayList<File> order(ArrayList<File> files) {
 		ArrayList<File> orderedList = new ArrayList<File>(files);
-		Collections.sort(orderedList, new Comparator<File>() {
-			@Override
-			public int compare(File o1, File o2) {
-				long firstSize = o1.length();
-				long secondSize = o2.length();
-				if(firstSize == secondSize) {
-					return 0;
-				}
-				return firstSize < secondSize ? -1 : 1;
+		Collections.sort(orderedList, (o1, o2) -> {
+			long firstSize = o1.length();
+			long secondSize = o2.length();
+			if(firstSize == secondSize) {
+				String firstPath = o1.getAbsolutePath();
+				String secondPath = o2.getAbsolutePath();
+				return firstPath.compareTo(secondPath) < 0 ? -1 : 1;
 			}
+			return firstSize < secondSize ? -1 : 1;
 		});
 		return orderedList;
 	}

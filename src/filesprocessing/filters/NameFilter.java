@@ -2,7 +2,6 @@ package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 class NameFilter extends Filter {
 
@@ -27,10 +26,12 @@ class NameFilter extends Filter {
     }
 
     @Override
-    public ArrayList<File> filter(String[] args) {
-        // todo Add Exceptions
+    public ArrayList<File> filter(String[] args) throws FilterWarningException {
+        if(args.length != 1) {
+        	throw new FilterWarningException();
+		}
         ArrayList<File> goodFiles = new ArrayList<File>();
-        Predicate<File> filter = createFilter(args);
+        MyPredicate filter = createFilter(args);
         for (File file : FilterFactory.allFiles) {
             if (filter.test(file)) {
                 goodFiles.add(file);
@@ -39,11 +40,11 @@ class NameFilter extends Filter {
         return goodFiles;
     }
 
-    private Predicate<File> createFilter(String[] args){
-        Predicate<File> filter = null;
+    private MyPredicate createFilter(String[] args) {
+        MyPredicate filter = null;
         switch (filterType) {
             case PREFIX:
-                filter = new Predicate<File>() {
+                filter = new MyPredicate() {
                     String prefix = args[0];
 
                     @Override
@@ -53,7 +54,7 @@ class NameFilter extends Filter {
                 };
                 break;
             case SUFFIX:
-                filter = new Predicate<File>() {
+                filter = new MyPredicate() {
                     String suffix = args[0];
 
                     @Override
@@ -63,7 +64,7 @@ class NameFilter extends Filter {
                 };
                 break;
             case FILE:
-                filter = new Predicate<File>() {
+                filter = new MyPredicate() {
                     String name = args[0];
 
                     @Override
@@ -73,7 +74,7 @@ class NameFilter extends Filter {
                 };
                 break;
             case CONTAINS:
-                filter = new Predicate<File>() {
+                filter = new MyPredicate() {
                     String inName = args[0];
 
                     @Override

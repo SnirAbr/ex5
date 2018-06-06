@@ -30,10 +30,15 @@ class PropertyFilter extends Filter {
     }
 
     @Override
-    public ArrayList<File> filter(String[] args) {
-        // todo Add Exceptions
+    public ArrayList<File> filter(String[] args) throws FilterWarningException {
+        if(args.length != 1) {
+        	throw new FilterWarningException();
+		}
+		if(!args[0].equals(POSITIVE) && !args[0].equals(NEGATIVE)) {
+			throw new FilterWarningException();
+		}
         ArrayList<File> goodFiles = new ArrayList<File>();
-        Predicate<File> filter = createFilter(args);
+        MyPredicate filter = createFilter(args);
         for (File file : FilterFactory.allFiles) {
             if (filter.test(file)) {
                 goodFiles.add(file);
@@ -42,11 +47,11 @@ class PropertyFilter extends Filter {
         return goodFiles;
     }
 
-    private Predicate<File> createFilter(String[] args) {
-        Predicate<File> filter = null;
+    private MyPredicate createFilter(String[] args) {
+        MyPredicate filter = null;
         switch (filterType) {
             case HIDDEN:
-                filter = new Predicate<File>() {
+                filter = new MyPredicate() {
                     boolean checkHidden = args[0].equals(POSITIVE);
 
                     @Override
@@ -56,7 +61,7 @@ class PropertyFilter extends Filter {
                 };
                 break;
             case WRITABLE:
-                filter = new Predicate<File>() {
+                filter = new MyPredicate() {
                     boolean checkWritable = args[0].equals(POSITIVE);
 
                     @Override
@@ -66,7 +71,7 @@ class PropertyFilter extends Filter {
                 };
                 break;
             case EXE:
-                filter = new Predicate<File>() {
+                filter = new MyPredicate() {
                     boolean checkExecutable = args[0].equals(POSITIVE);
 
                     @Override

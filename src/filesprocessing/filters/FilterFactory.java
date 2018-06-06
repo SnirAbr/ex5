@@ -2,7 +2,6 @@ package filesprocessing.filters;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FilterFactory {
 
@@ -18,12 +17,40 @@ public class FilterFactory {
 	private static final PropertyFilter HIDDEN = new PropertyFilter(PropertyFilter.PROPERTY_TYPE.HIDDEN);
 	private static final AllFilter ALL = new AllFilter();
 
+	/* ArrayList that contains all of the files in the given directory */
 	static ArrayList<File> allFiles;
 
-	public static FilterDecorator createFilter(String filesDir, String type, boolean not) {
+	/**
+	 * Factory for creating filters
+	 * @param filesDir path for the directory with files
+	 * @param type type of filter to create
+	 * @param not whether the 'NOT' option was used
+	 * @return a filter decorator with the fitting filter
+	 * @throws FilterWarningException in case of invalid arguments
+	 */
+	public static FilterDecorator createFilter(String filesDir, String type, boolean not)
+			throws FilterWarningException {
 		FilterDecorator decorator = new FilterDecorator(null, not);
+		updateFiles(filesDir);
+		addFilter(decorator, type);
+		return decorator;
+	}
+
+	private static void updateFiles(String filesDir) {
 		File[] files = new File(filesDir).listFiles();
-		allFiles = new ArrayList<File>(Arrays.asList(files));
+		if(files == null) {
+			allFiles = new ArrayList<File>();
+		}
+		else {
+			for (File file : files) {
+				if (file.isFile()) {
+					allFiles.add(file);
+				}
+			}
+		}
+	}
+
+	private static void addFilter(FilterDecorator decorator, String type) throws FilterWarningException {
 		switch(type) {
 			case "greater_than":
 				decorator.setFilter(GREATER);
@@ -59,9 +86,7 @@ public class FilterFactory {
 				decorator.setFilter(ALL);
 				break;
 			default:
-				// todo: add error
-				break;
+				throw new FilterWarningException();
 		}
-		return decorator;
 	}
 }
