@@ -35,13 +35,8 @@ class SectionHandler {
         }
         boolean reverse = orderCommand[filterCommand.length - 1].equals(REVERSE);
         String orderType = orderCommand[0];
-        if (reverse) {
-            orderCommand = Arrays.copyOfRange(orderCommand, 1, orderCommand.length - 1);
-        } else {
-            orderCommand = Arrays.copyOfRange(orderCommand, 1, orderCommand.length);
-        }
-        OrderDecorator orderer = OrderFactory.createOrder(fitting_files,orderType,reverse);
-        ArrayList<File> orderedFiles =orderer.order(orderCommand);
+        OrderDecorator orderer = OrderFactory.createOrder(orderType,reverse);
+        ArrayList<File> orderedFiles =orderer.order(fitting_files);
         ArrayList<String> orderedNames = new ArrayList<>();
         for(File file:orderedFiles){
             orderedNames.add(file.getName());
