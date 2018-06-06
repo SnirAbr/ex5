@@ -9,7 +9,7 @@ public class OrderFactory {
 	private static final SizeOrder SIZE = new SizeOrder();
 	private static final TypeOrder TYPE = new TypeOrder();
 
-	public OrderDecorator createOrder(ArrayList<File> files, String type, boolean reverse) {
+	public static OrderDecorator createOrder(String type, boolean reverse) {
 		OrderDecorator decorator = new OrderDecorator(null, reverse);
 		switch(type) {
 			case "abs":
