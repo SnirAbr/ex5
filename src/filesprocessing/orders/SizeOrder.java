@@ -8,19 +8,13 @@ import java.util.Comparator;
 class SizeOrder extends Order {
 
 	/**
-	 * Calls the Order's constructor
-	 */
-	SizeOrder(ArrayList<File> files) {
-		super(files);
-	}
-
-	/**
 	 * Order 'allFiles' by absolute path
+	 * @param files list of files that needs to be ordered
 	 * @return the ordered list
 	 */
 	@Override
-	public ArrayList<File> order() {
-		ArrayList<File> orderedList = new ArrayList<File>(allFiles);
+	public ArrayList<File> order(ArrayList<File> files) {
+		ArrayList<File> orderedList = new ArrayList<File>(files);
 		Collections.sort(orderedList, new Comparator<File>() {
 			@Override
 			public int compare(File o1, File o2) {

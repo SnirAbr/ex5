@@ -31,7 +31,7 @@ class NameFilter extends Filter {
         // todo Add Exceptions
         ArrayList<File> goodFiles = new ArrayList<File>();
         Predicate<File> filter = createFilter(args);
-        for (File file : allFiles) {
+        for (File file : FilterFactory.allFiles) {
             if (filter.test(file)) {
                 goodFiles.add(file);
             }
