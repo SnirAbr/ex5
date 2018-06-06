@@ -20,7 +20,7 @@ public class FilterFactory {
 
 	static ArrayList<File> allFiles;
 
-	public FilterDecorator createFilter(String filesDir, String type, String[] args, boolean not) {
+	public static FilterDecorator createFilter(String filesDir, String type, boolean not) {
 		FilterDecorator decorator = new FilterDecorator(null, not);
 		File[] files = new File(filesDir).listFiles();
 		allFiles = new ArrayList<File>(Arrays.asList(files));
