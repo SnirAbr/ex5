@@ -9,9 +9,9 @@ import java.util.ArrayList;
 class AllFilter extends Filter {
 
     @Override
-    public ArrayList<File> filter(String[] args) {
-        //TODO handle exceptions
+    public ArrayList<File> filter(String[] args) throws FilterWarningException {
         if (args.length != 0) {
+			throw new FilterWarningException();
         }
         return FilterFactory.allFiles;
     }

@@ -9,10 +9,11 @@ public class OrderFactory {
 	private static final SizeOrder SIZE = new SizeOrder();
 	private static final TypeOrder TYPE = new TypeOrder();
 
-	public static OrderDecorator createOrder(String type, boolean reverse) {
+	public static OrderDecorator createOrder(String type, boolean reverse) throws OrderWarningException {
 		OrderDecorator decorator = new OrderDecorator(null, reverse);
 		switch(type) {
 			case "abs":
+			case "":
 				decorator.setOrder(ABS);
 				break;
 			case "type":
@@ -22,8 +23,7 @@ public class OrderFactory {
 				decorator.setOrder(SIZE);
 				break;
 			default:
-				// todo: add error
-				break;
+				throw new OrderWarningException();
 		}
 		return decorator;
 	}

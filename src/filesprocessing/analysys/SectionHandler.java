@@ -1,5 +1,6 @@
 package filesprocessing.analysys;
 
+import filesprocessing.WarningException;
 import filesprocessing.filters.FilterDecorator;
 import filesprocessing.filters.FilterFactory;
 import filesprocessing.orders.OrderDecorator;
@@ -15,7 +16,8 @@ class SectionHandler {
     private final static String NEGATIVE = "NOT";
     private final static String REVERSE = "REVERSE";
 
-    static ArrayList<String> handleSection(ArrayList<String> section, String sourceDir) {
+    static ArrayList<String> handleSection(ArrayList<String> section, String sourceDir)
+            throws WarningException{
         String[] filterCommand = section.remove(0)
                 .split(SPLITTER);
         boolean not = filterCommand[filterCommand.length - 1].equals(NEGATIVE);
