@@ -16,7 +16,6 @@ class SectionHandler {
     private final static String REVERSE = "REVERSE";
 
     static ArrayList<String> handleSection(ArrayList<String> section, String sourceDir) {
-        ArrayList<String> output = new ArrayList<String>();
         String[] filterCommand = section.remove(0)
                 .split(SPLITTER);
         boolean not = filterCommand[filterCommand.length - 1].equals(NEGATIVE);
@@ -33,7 +32,7 @@ class SectionHandler {
             orderCommand = section.remove(0)
                     .split(SPLITTER);
         }
-        boolean reverse = orderCommand[filterCommand.length - 1].equals(REVERSE);
+        boolean reverse = orderCommand[orderCommand.length - 1].equals(REVERSE);
         String orderType = orderCommand[0];
         OrderDecorator orderer = OrderFactory.createOrder(orderType,reverse);
         ArrayList<File> orderedFiles =orderer.order(fitting_files);
