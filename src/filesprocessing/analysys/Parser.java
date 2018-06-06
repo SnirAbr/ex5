@@ -3,6 +3,7 @@ package filesprocessing.analysys;
 import java.io.File;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * gets the string of the directory of files and string of the location of the command file and returns the
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 public class Parser {
 
     /* starting string of a filter line*/
-    private final static String FILTER_START = "FILTER";
+    private final static String FILTER_LINE = "FILTER";
     /* starting string of a order line*/
-    private final static String ORDER_START = "ORDER";
+    private final static String ORDER_LINE = "ORDER";
 
     /**
      * takes the files from the sourceDir and filters and ordered them according to the command file in a
@@ -31,7 +32,7 @@ public class Parser {
         } catch (Exception e) {
 
         }
-        ArrayList<String> commandData = new ArrayList<>();
+        ArrayList<String> commandData = new ArrayList<String>();
         String line;
         try {
             while ((line = br.readLine()) != null) {
@@ -39,28 +40,26 @@ public class Parser {
             }
         } catch (Exception e) {
         }
-        ArrayList<String> output = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<String>();
         while (commandData.size() >= 3) {
-            ArrayList<String> section = new ArrayList<>();
+            ArrayList<String> section = new ArrayList<String>();
             String nextLine = commandData.remove(0);
-            if (!nextLine.startsWith(FILTER_START)) {
+            if (!nextLine.startsWith(FILTER_LINE)) {
                 // TODO handle error
             }
-            section.add(nextLine);
             section.add(commandData.remove(0));
             nextLine = commandData.remove(0);
-            if (!nextLine.startsWith(ORDER_START)) {
+            if (!nextLine.equals(ORDER_LINE)) {
                 // TODO error
             }
-            section.add(nextLine);
             if (!commandData.isEmpty()) {
                 nextLine = commandData.get(0);
-                if (!nextLine.startsWith(FILTER_START)) {
+                if (!nextLine.equals(FILTER_LINE)) {
                     commandData.remove(0);
                     section.add(nextLine);
                 }
             }
-            output.addAll(Sections.handleSection(section));
+            output.addAll(SectionHandler.handleSection(section, sourceDir));
         }
         if (commandData.size() != 0) {
             //TODO error
