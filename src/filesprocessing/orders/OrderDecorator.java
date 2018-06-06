@@ -22,11 +22,11 @@ public class OrderDecorator {
 
 	/**
 	 * Filter 'allFiles' and return a list of ordered files
-	 * @param args order arguments
+	 * @param files files that need to be ordered
 	 * @return an array of File objects of the ordered list
 	 */
-	public ArrayList<File> order(String[] args) {
-		ArrayList<File> orderedFiles = this.order.order();
+	public ArrayList<File> order(ArrayList<File> files) {
+		ArrayList<File> orderedFiles = this.order.order(files);
 		if(reverse) {
 			Collections.reverse(orderedFiles);
 		}

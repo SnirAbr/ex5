@@ -20,7 +20,7 @@ class TypeOrder extends Order {
 			public int compare(File o1, File o2) {
 				String firstType = getFileExtension(o1);
 				String secondType = getFileExtension(o2);
-				if(firstType == secondType) {
+				if(firstType.equals(secondType)) {
 					return 0;
 				}
 				return firstType.compareTo(secondType) < 0 ? -1 : 1;
