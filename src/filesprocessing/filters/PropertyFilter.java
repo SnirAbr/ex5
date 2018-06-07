@@ -28,6 +28,7 @@ class PropertyFilter extends Filter {
 
     /**
      * constructs a new property filter
+     *
      * @param filterType type of this filter
      */
     PropertyFilter(PROPERTY_TYPE filterType) {
@@ -36,12 +37,12 @@ class PropertyFilter extends Filter {
 
     @Override
     public ArrayList<File> filter(String[] args) throws FilterWarningException {
-        if(args.length != 1) {
-        	throw new FilterWarningException();
-		}
-		if(!args[0].equals(POSITIVE) && !args[0].equals(NEGATIVE)) {
-			throw new FilterWarningException();
-		}
+        if (args.length != 1) {
+            throw new FilterWarningException();
+        }
+        if (!args[0].equals(POSITIVE) && !args[0].equals(NEGATIVE)) {
+            throw new FilterWarningException();
+        }
         ArrayList<File> goodFiles = new ArrayList<File>();
         MyPredicate filter = createFilter(args);
         for (File file : FilterFactory.allFiles) {

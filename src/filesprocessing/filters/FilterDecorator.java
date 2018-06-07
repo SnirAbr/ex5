@@ -16,6 +16,9 @@ public class FilterDecorator {
 
     /**
      * Class' Constructor
+     *
+     * @param filter the filter to wrap
+     * @param not    whether the 'NOT' option was used or not
      */
     public FilterDecorator(Filter filter, boolean not) {
         this.filter = filter;

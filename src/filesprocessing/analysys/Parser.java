@@ -35,9 +35,9 @@ public class Parser {
     private final static String WARNING_MESSAGE = "Warning in line ";
 
     /* id message as a filter warning */
-    private final static String FILTER_WARNING_ID = "FILTER";
+    public final static String FILTER_WARNING_ID = "FILTER";
     /* id message as an order warning*/
-    private final static String ORDER_WARNING_ID = "ORDER";
+    public final static String ORDER_WARNING_ID = "ORDER";
 
     /* default filter */
     private final static String DEFAULT_FILTER = "all";

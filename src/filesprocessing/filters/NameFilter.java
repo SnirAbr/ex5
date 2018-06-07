@@ -22,6 +22,7 @@ class NameFilter extends Filter {
 
     /**
      * constructs a new size filter
+     *
      * @param filterType type of this filter
      */
     NameFilter(NAME_TYPE filterType) {
@@ -30,9 +31,9 @@ class NameFilter extends Filter {
 
     @Override
     public ArrayList<File> filter(String[] args) throws FilterWarningException {
-        if(args.length != 1) {
-        	throw new FilterWarningException();
-		}
+        if (args.length != 1) {
+            throw new FilterWarningException();
+        }
         ArrayList<File> goodFiles = new ArrayList<File>();
         MyPredicate filter = createFilter(args);
         for (File file : FilterFactory.allFiles) {
@@ -52,7 +53,8 @@ class NameFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.getName().startsWith(prefix);
+                        return file.getName()
+                                .startsWith(prefix);
                     }
                 };
                 break;
@@ -62,7 +64,8 @@ class NameFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.getName().endsWith(suffix);
+                        return file.getName()
+                                .endsWith(suffix);
                     }
                 };
                 break;
@@ -72,7 +75,8 @@ class NameFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.getName().equals(name);
+                        return file.getName()
+                                .equals(name);
                     }
                 };
                 break;
@@ -82,7 +86,8 @@ class NameFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.getName().contains(inName);
+                        return file.getName()
+                                .contains(inName);
                     }
                 };
                 break;

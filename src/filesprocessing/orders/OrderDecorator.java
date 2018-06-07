@@ -17,6 +17,8 @@ public class OrderDecorator {
 
     /**
      * Class' Constructor
+     * @param order the order to wrap
+     * @param reverse whether the 'REVERSE' option was used or not
      */
     public OrderDecorator(Order order, boolean reverse) {
         this.order = order;

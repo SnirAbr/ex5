@@ -16,6 +16,7 @@ public class DirectoryProcessor {
 
     /**
      * processes the files according to the command file
+     *
      * @param args 2 arguments directory of files and command file
      */
     public static void main(String[] args) {
