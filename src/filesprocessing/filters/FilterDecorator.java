@@ -3,6 +3,9 @@ package filesprocessing.filters;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * wraps the filters in order to be able to give all files not answering to the other parameters conditions
+ */
 public class FilterDecorator {
 
     /* The filter to work with */

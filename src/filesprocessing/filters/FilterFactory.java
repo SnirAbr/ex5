@@ -3,6 +3,10 @@ package filesprocessing.filters;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * gives back a decorator of a filter according to a desired type and more parameters described
+ * acts as a singleton as far as the filters are concerned
+ */
 public class FilterFactory {
 
     private static final SizeFilter GREATER = new SizeFilter(SizeFilter.SIZE_TYPE.GREATER);

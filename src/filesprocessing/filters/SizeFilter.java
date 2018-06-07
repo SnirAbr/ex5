@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 /**
- * a class of a filter which gives only files larger than an asked number
+ * a class of a filters regarding the size of the files
  */
 class SizeFilter extends Filter {
 

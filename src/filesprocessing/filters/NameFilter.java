@@ -3,6 +3,9 @@ package filesprocessing.filters;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * filters regarding the files' names
+ */
 class NameFilter extends Filter {
 
     /**

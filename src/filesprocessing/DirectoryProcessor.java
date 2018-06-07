@@ -5,10 +5,19 @@ import filesprocessing.analysys.Parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * the class with the main function, gets the directory of the files and the command file and processes the
+ * files according to the command file
+ */
 public class DirectoryProcessor {
 
+    /* string of error when not given 2 parameters */
     private static final String NUM_ARGS_ERR = "ERROR: the number of arguments is different than 2";
 
+    /**
+     * processes the files according to the command file
+     * @param args 2 arguments directory of files and command file
+     */
     public static void main(String[] args) {
         if (args.length != 2) {
             System.err.println(NUM_ARGS_ERR);

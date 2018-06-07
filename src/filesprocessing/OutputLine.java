@@ -1,5 +1,8 @@
 package filesprocessing;
 
+/**
+ * class holding an output line and it's type - warning, error or normal valid line
+ */
 public class OutputLine {
 
     /**

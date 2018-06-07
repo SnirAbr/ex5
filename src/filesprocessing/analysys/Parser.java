@@ -53,6 +53,7 @@ public class Parser {
     public static ArrayList<OutputLine> processFiles(String sourceDir, String commandDir) {
         ArrayList<OutputLine> output = new ArrayList<OutputLine>();
         File commandFile = new File(commandDir);
+        // reads the command file
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(commandFile));
@@ -71,8 +72,10 @@ public class Parser {
             return output;
         }
         int lineCounter = 0;
+        // runs on every section
         while (commandData.size() >= 3) {
             ArrayList<String> section = new ArrayList<String>();
+            // should be FILTER line
             String nextLine = commandData.remove(0);
             lineCounter++;
             if (!nextLine.equals(FILTER_LINE)) {
@@ -80,14 +83,17 @@ public class Parser {
                 output.add(new OutputLine(BAD_SUBSECTION_NAME, OutputLine.STATUS.ERROR));
                 return output;
             }
+            // this is the filter's arguments line
             section.add(commandData.remove(0));
+            // should be ORDER line
             nextLine = commandData.remove(0);
-            lineCounter+=2;
+            lineCounter += 2;
             if (!nextLine.equals(ORDER_LINE)) {
                 output.clear();
                 output.add(new OutputLine(BAD_SUBSECTION_NAME, OutputLine.STATUS.ERROR));
                 return output;
             }
+            // if there is another line and it's not FILTER line then take it as order's arguments line
             if (!commandData.isEmpty()) {
                 nextLine = commandData.get(0);
                 if (!nextLine.equals(FILTER_LINE)) {
@@ -96,6 +102,7 @@ public class Parser {
                     section.add(nextLine);
                 }
             }
+            // start trying to process files according to this section
             try {
                 ArrayList<String> files = SectionHandler.handleSection(section, sourceDir);
                 for (String file : files) {
@@ -103,6 +110,7 @@ public class Parser {
                 }
             } catch (WarningException exception) {
                 switch (exception.getMessage()) {
+                    // if invalid filter arguments
                     case FILTER_WARNING_ID:
                         int warningLine = section.size() == 1 ? lineCounter - 1 : lineCounter - 2;
                         output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(warningLine),
@@ -114,6 +122,7 @@ public class Parser {
                                 output.add(new OutputLine(file, OutputLine.STATUS.VALID));
                             }
                         } catch (WarningException orderException) {
+                            // if both filter's and order's original arguments were invalid
                             output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(lineCounter),
                                     OutputLine.STATUS.WARNING));
                             section.remove(1);
@@ -127,6 +136,7 @@ public class Parser {
                             }
                         }
                         break;
+                    // if order's arguments are invalid
                     case ORDER_WARNING_ID:
                         output.add(new OutputLine(WARNING_MESSAGE + Integer.toString(lineCounter),
                                 OutputLine.STATUS.WARNING));
@@ -142,6 +152,7 @@ public class Parser {
                 }
             }
         }
+        // if command file ends with an unfull section
         if (commandData.size() != 0) {
             output.clear();
             output.add(new OutputLine(BAD_COMMAND_FORMAT, OutputLine.STATUS.ERROR));
