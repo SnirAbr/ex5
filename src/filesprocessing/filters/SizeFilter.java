@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 /**
- * a class of a filter which gives only files larger than an asked number
+ * a class of a filters regarding the size of the files
  */
 class SizeFilter extends Filter {
 
@@ -26,6 +26,7 @@ class SizeFilter extends Filter {
 
     /**
      * constructs a new size filter
+     *
      * @param filterType type of this filter
      */
     SizeFilter(SIZE_TYPE filterType) {
@@ -35,11 +36,16 @@ class SizeFilter extends Filter {
     @Override
     public ArrayList<File> filter(String[] args) throws FilterWarningException {
         ArrayList<File> goodFiles = new ArrayList<File>();
-        for(String arg : args) {
-        	if(Double.parseDouble(arg) < 0) {
-        		throw new FilterWarningException();
-			}
-		}
+        for (String arg : args) {
+            try {
+                Double.parseDouble(arg);
+            } catch (NumberFormatException e) {
+                throw new FilterWarningException();
+            }
+            if (Double.parseDouble(arg) < 0) {
+                throw new FilterWarningException();
+            }
+        }
         MyPredicate filter = createFilter(args);
         for (File file : FilterFactory.allFiles) {
             if (filter.test(file)) {
@@ -53,9 +59,9 @@ class SizeFilter extends Filter {
         MyPredicate filter = null;
         switch (filterType) {
             case GREATER:
-            	if(args.length != 1) {
-            		throw new FilterWarningException();
-				}
+                if (args.length != 1) {
+                    throw new FilterWarningException();
+                }
                 filter = new MyPredicate() {
                     double lowerBound = Double.parseDouble(args[0]) * KB_TO_BYTES_MUL;
 
@@ -66,26 +72,26 @@ class SizeFilter extends Filter {
                 };
                 break;
             case BETWEEN:
-            	if(args.length != 2) {
-            		throw new FilterWarningException();
-				}
+                if (args.length != 2) {
+                    throw new FilterWarningException();
+                }
                 filter = new MyPredicate() {
                     double lowerBound = Double.parseDouble(args[0]) * KB_TO_BYTES_MUL;
                     double upperBound = Double.parseDouble(args[1]) * KB_TO_BYTES_MUL;
 
                     @Override
                     public boolean test(File file) throws FilterWarningException {
-                    	if(upperBound < lowerBound) {
-							throw new FilterWarningException();
-						}
+                        if (upperBound < lowerBound) {
+                            throw new FilterWarningException();
+                        }
                         return file.length() >= lowerBound && file.length() <= upperBound;
                     }
                 };
                 break;
             case SMALLER:
-            	if(args.length != 1) {
-            		throw new FilterWarningException();
-				}
+                if (args.length != 1) {
+                    throw new FilterWarningException();
+                }
                 filter = new MyPredicate() {
                     double upperBound = Double.parseDouble(args[0]) * KB_TO_BYTES_MUL;
 

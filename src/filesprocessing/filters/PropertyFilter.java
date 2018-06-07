@@ -4,8 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+/**
+ * filters checking the property of the files
+ */
 class PropertyFilter extends Filter {
 
+    /* strings to check if the filter should take the files answering to the argument or not answering to
+    the argument*/
     private final String POSITIVE = "YES";
     private final String NEGATIVE = "NO";
 
@@ -66,7 +71,7 @@ class PropertyFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.isHidden() == checkWritable;
+                        return file.canWrite() == checkWritable;
                     }
                 };
                 break;
@@ -76,7 +81,7 @@ class PropertyFilter extends Filter {
 
                     @Override
                     public boolean test(File file) {
-                        return file.isHidden() == checkExecutable;
+                        return file.canExecute() == checkExecutable;
                     }
                 };
                 break;
